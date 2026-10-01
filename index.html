@@ -171,6 +171,8 @@
     <p class="sub">Perda de material, hora parada esperando, retrabalho e atraso não entram como linha no orçamento — <strong>entram diluídos em tudo.</strong> Em 40 segundos você vê a ordem de grandeza do que isso custa na sua obra.</p>
   </section>
 
+  <p class="sub" style="margin-top:-6px">Prefere falar direto? <a href="https://ig.me/m/construa.360" rel="noopener" style="color:var(--blue);font-weight:600">Manda BETA no direct do @construa.360</a>. Beta controlado, ainda não está à venda.</p>
+
   <div class="cota"><span>40 segundos</span><i></i><span>5 campos</span></div>
 
   <form id="form" class="card" novalidate>
@@ -219,7 +221,7 @@
   </form>
 
   <form id="gate" class="card" novalidate>
-    <h2>Para onde eu mando o detalhamento</h2>
+    <h2>Quer o detalhamento no direct? <span style="font-weight:500;color:#64748B">(opcional)</span></h2>
     <div class="row2">
       <div class="field">
         <label for="nome">Seu nome</label>
@@ -402,8 +404,8 @@
     ok = erro('orcamento', orc < 50000) && ok;
     ok = erro('prazo', prazo < 1 || prazo > 120) && ok;
     ok = erro('equipe', equipe < 1 || equipe > 500) && ok;
-    ok = erro('nome', nome.length < 2) && ok;
-    ok = erro('zap', zap.length < 10 || zap.length > 13) && ok;
+    ok = erro('nome', nome.length > 0 && nome.length < 2) && ok;
+    ok = erro('zap', zap.length > 0 && (zap.length < 10 || zap.length > 13)) && ok;
     if(!ok){ document.querySelector('.err.on').scrollIntoView({behavior:'smooth',block:'center'}); return; }
 
     ultimo = calcular();
@@ -415,8 +417,8 @@
   function mensagem(){
     if(!ultimo) return '';
     return 'BETA\n\n' +
-      'Nome: ' + ultimo.nome + '\n' +
-      'WhatsApp: ' + ultimo.zap + '\n' +
+      (ultimo.nome ? 'Nome: ' + ultimo.nome + '\n' : '') +
+      (ultimo.zap ? 'WhatsApp: ' + ultimo.zap + '\n' : '') +
       'Obra: ' + brl(ultimo.orc) + ' em ' + ultimo.prazo + ' meses, ' + ultimo.equipe + ' na equipe\n' +
       'Perda estimada: ' + brl(ultimo.mes) + '/mês (' + brl(ultimo.totalObra) + ' na obra)\n\n' +
       'Quero entrar na lista da primeira turma.';
